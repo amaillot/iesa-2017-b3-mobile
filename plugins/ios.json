@@ -15,6 +15,9 @@
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "fr.amaillot.cordova.exo1"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "fr.amaillot.cordova.exo1"
         }
     },
     "dependent_plugins": {}
