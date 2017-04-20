@@ -28,6 +28,8 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+        var element = document.getElementById('device');
+        element.innerHTML = '<ul><li>'+device.model+'</li><li>'+device.platform+'</li><li>'+device.cordova+'</li><ul>';
     },
 
     // Update DOM on a Received Event
