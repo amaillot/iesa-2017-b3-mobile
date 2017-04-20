@@ -29,7 +29,22 @@ var app = {
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
         var element = document.getElementById('device');
-        element.innerHTML = '<ul><li>'+device.model+'</li><li>'+device.platform+'</li><li>'+device.cordova+'</li><ul>';
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        var heure = today.getHours();
+        var minutes = today.getMinutes();
+
+        today = dd+'/'+mm+'/'+yyyy+' / '+heure+' : '+minutes;
+        
+        var lastDate = window.localStorage.getItem('lastDate');
+
+        window.localStorage.setItem('lastDate', today);
+
+
+        element.innerHTML = '<ul><li>'+device.model+'</li><li>'+device.platform+'</li><li>'+device.cordova+'</li><li>'+today+'</li><li>Last date :'+lastDate+'</li><ul>';
         function checkConnection() {
             var networkState = navigator.connection.type;
 
