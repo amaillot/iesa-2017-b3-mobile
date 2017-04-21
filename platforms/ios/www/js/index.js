@@ -28,6 +28,10 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+
         var element = document.getElementById('device');
 
         var today = new Date();
@@ -46,8 +50,40 @@ var app = {
         function onSuccess(contacts) {
             alert('Found ' + contacts.length + ' contacts.');
             JSON.stringify(contacts);
-            element.innerHTML = '<li>'+contacts+'</li>';
+            capturePhoto();
+            /*
+                        element.innerHTML = '<li>'+contacts+'</li>';
+            */
         };
+
+        function onPhotoDataSuccess(imageData) {
+            // Uncomment to view the base64-encoded image data
+            // console.log(imageData);
+
+            // Get image handle
+            //
+            var smallImage = document.getElementById('smallImage');
+
+            // Unhide image elements
+            //
+            smallImage.style.display = 'block';
+
+            // Show the captured photo
+            // The inline CSS rules are used to resize the image
+            //
+            smallImage.src = "data:image/jpeg;base64," + imageData;
+        }
+
+        function onFail(message) {
+            alert('Failed because: ' + message);
+        }
+
+        function capturePhoto() {
+            // Take picture using device camera and retrieve image as base64-encoded string
+            navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+                destinationType: destinationType.DATA_URL });
+        }
+
 
         var fields = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
         var contacts = navigator.contacts.find(fields, onSuccess);
