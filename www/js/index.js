@@ -43,6 +43,17 @@ var app = {
 
         window.localStorage.setItem('lastDate', today);
 
+        function onSuccess(contacts) {
+            alert('Found ' + contacts.length + ' contacts.');
+            JSON.stringify(contacts);
+/*
+            element.innerHTML = '<li>'+contacts+'</li>';
+*/
+        };
+
+        var fields = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
+        var contacts = navigator.contacts.find(fields, onSuccess);
+
 
         element.innerHTML = '<ul><li>'+device.model+'</li><li>'+device.platform+'</li><li>'+device.cordova+'</li><li>'+today+'</li><li>Last date :'+lastDate+'</li><ul>';
         function checkConnection() {
